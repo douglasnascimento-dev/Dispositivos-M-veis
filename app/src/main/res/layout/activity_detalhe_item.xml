@@ -9,10 +9,8 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
-        style="@style/Widget.DespensaAlerta.Toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.Material3.Dark.ActionBar" />
+        android:layout_height="?attr/actionBarSize" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,8 +24,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/branco">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -40,6 +37,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?attr/textAppearanceHeadlineSmall"
+                        android:textColor="@color/deep_juniper"
                         android:textStyle="bold"
                         tools:text="Leite integral" />
 
@@ -52,7 +50,8 @@
                         android:paddingHorizontal="10dp"
                         android:paddingVertical="3dp"
                         android:textAppearance="@style/TextAppearance.DespensaAlerta.Selo"
-                        tools:backgroundTint="@color/status_vencido"
+                        tools:backgroundTint="@color/status_vencido_fundo"
+                        tools:textColor="@color/status_vencido"
                         tools:text="Vencido" />
 
                     <TextView
@@ -61,6 +60,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="@color/caramel_clay"
                         tools:text="Venceu há 2 dias" />
 
                 <TextView

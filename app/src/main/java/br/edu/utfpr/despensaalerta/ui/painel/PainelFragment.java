@@ -26,6 +26,7 @@ import br.edu.utfpr.despensaalerta.ui.item.DetalheItemActivity;
  */
 public class PainelFragment extends Fragment {
 
+    private TextView textTotalItens;
     private TextView textTotalVencidos;
     private TextView textTotalVencendo;
     private TextView textTotalOk;
@@ -41,6 +42,7 @@ public class PainelFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        textTotalItens = view.findViewById(R.id.text_total_itens);
         textTotalVencidos = view.findViewById(R.id.text_total_vencidos);
         textTotalVencendo = view.findViewById(R.id.text_total_vencendo);
         textTotalOk = view.findViewById(R.id.text_total_ok);
@@ -63,6 +65,9 @@ public class PainelFragment extends Fragment {
         List<Item> vencidos = repositorio.listarPorStatus(StatusValidade.VENCIDO);
         List<Item> vencendo = repositorio.listarPorStatus(StatusValidade.VENCENDO);
 
+        int totalItens = repositorio.listarAtivos().size();
+        textTotalItens.setText(getResources().getQuantityString(
+                R.plurals.painel_total_itens, totalItens, totalItens));
         textTotalVencidos.setText(String.valueOf(vencidos.size()));
         textTotalVencendo.setText(String.valueOf(vencendo.size()));
         textTotalOk.setText(String.valueOf(

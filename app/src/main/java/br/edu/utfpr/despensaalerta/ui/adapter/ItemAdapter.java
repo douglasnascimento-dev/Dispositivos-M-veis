@@ -1,21 +1,21 @@
 package br.edu.utfpr.despensaalerta.ui.adapter;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import br.edu.utfpr.despensaalerta.R;
 import br.edu.utfpr.despensaalerta.model.Item;
+import br.edu.utfpr.despensaalerta.ui.Selos;
 import br.edu.utfpr.despensaalerta.util.DataUtils;
 
 /**
@@ -62,21 +62,26 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
         int rotuloRes;
         int corRes;
+        int fundoRes;
         if (modoHistorico) {
             holder.textData.setText(context.getString(R.string.formato_data_baixa,
                     DataUtils.formatar(item.getDataBaixa())));
             rotuloRes = item.getSituacao().getRotuloRes();
             corRes = item.getSituacao().getCorRes();
+            fundoRes = item.getSituacao().getFundoRes();
         } else {
             holder.textData.setText(context.getString(R.string.formato_validade_prazo,
                     DataUtils.formatar(item.getDataValidade()),
                     DataUtils.descreverPrazo(context, item.getDataValidade())));
             rotuloRes = item.getStatus().getRotuloRes();
             corRes = item.getStatus().getCorRes();
+            fundoRes = item.getStatus().getFundoRes();
         }
         holder.textSelo.setText(rotuloRes);
-        holder.textSelo.setBackgroundTintList(
-                ColorStateList.valueOf(ContextCompat.getColor(context, corRes)));
+        Selos.colorir(holder.textSelo, corRes, fundoRes);
+
+        holder.textInicial.setText(item.getNome().substring(0, 1).toUpperCase(Locale.getDefault()));
+        Selos.colorir(holder.textInicial, corRes, fundoRes);
 
         holder.itemView.setOnClickListener(v -> listener.onItemClick(item));
     }
@@ -91,6 +96,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         final TextView textDetalhes;
         final TextView textData;
         final TextView textSelo;
+        final TextView textInicial;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -98,6 +104,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             textDetalhes = itemView.findViewById(R.id.text_detalhes);
             textData = itemView.findViewById(R.id.text_data);
             textSelo = itemView.findViewById(R.id.text_selo);
+            textInicial = itemView.findViewById(R.id.text_inicial);
         }
     }
 }

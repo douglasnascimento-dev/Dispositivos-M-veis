@@ -9,27 +9,35 @@ import br.edu.utfpr.despensaalerta.R;
  */
 public enum StatusValidade {
 
-    VENCIDO(R.string.status_vencido, R.color.status_vencido),
-    VENCENDO(R.string.status_vencendo, R.color.status_vencendo),
-    DENTRO_DA_VALIDADE(R.string.status_dentro_validade, R.color.status_ok);
+    VENCIDO(R.string.status_vencido, R.color.status_vencido, R.color.status_vencido_fundo),
+    VENCENDO(R.string.status_vencendo, R.color.status_vencendo, R.color.status_vencendo_fundo),
+    DENTRO_DA_VALIDADE(R.string.status_dentro_validade, R.color.status_ok, R.color.status_ok_fundo);
 
     /** Quantidade de dias antes do vencimento em que o item passa a exigir atenção. */
     public static final int DIAS_ALERTA = 7;
 
     private final int rotuloRes;
     private final int corRes;
+    private final int fundoRes;
 
-    StatusValidade(int rotuloRes, int corRes) {
+    StatusValidade(int rotuloRes, int corRes, int fundoRes) {
         this.rotuloRes = rotuloRes;
         this.corRes = corRes;
+        this.fundoRes = fundoRes;
     }
 
     public int getRotuloRes() {
         return rotuloRes;
     }
 
+    /** Cor do texto do selo. */
     public int getCorRes() {
         return corRes;
+    }
+
+    /** Cor suave de fundo do selo. */
+    public int getFundoRes() {
+        return fundoRes;
     }
 
     public static StatusValidade calcular(LocalDate validade, LocalDate hoje) {

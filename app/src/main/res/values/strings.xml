@@ -24,6 +24,11 @@
     <string name="situacao_descartado">Descartado</string>
 
     <!-- Painel -->
+    <string name="painel_saudacao">Sua despensa hoje</string>
+    <plurals name="painel_total_itens">
+        <item quantity="one">%d item disponível</item>
+        <item quantity="other">%d itens disponíveis</item>
+    </plurals>
     <string name="painel_vencidos">Vencidos</string>
     <string name="painel_vencendo">Próximos 7 dias</string>
     <string name="painel_ok">Na validade</string>

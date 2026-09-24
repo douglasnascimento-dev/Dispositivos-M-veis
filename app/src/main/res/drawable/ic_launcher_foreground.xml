@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Pote de mantimentos com um relógio de alerta. -->
+<!-- Pote de mantimentos em arco com folha, nas cores da identidade visual. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
+    <!-- Pote em forma de arco -->
+    <path
+        android:fillColor="@color/cream_linen"
+        android:pathData="M34,78 L34,54 A20,20 0,0 1,74 54 L74,78 A4,4 0,0 1,70 82 L38,82 A4,4 0,0 1,34 78 Z" />
     <!-- Tampa -->
     <path
-        android:fillColor="#FFB74D"
-        android:pathData="M36,30h30a3,3 0,0 1,3 3v5a3,3 0,0 1,-3 3H36a3,3 0,0 1,-3 -3v-5a3,3 0,0 1,3 -3z" />
-    <!-- Pote -->
+        android:fillColor="@color/caramel_clay"
+        android:pathData="M42,26 L66,26 A3,3 0,0 1,69 29 L69,34 A3,3 0,0 1,66 37 L42,37 A3,3 0,0 1,39 34 L39,29 A3,3 0,0 1,42 26 Z" />
+    <!-- Folha -->
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M37,43h28a4,4 0,0 1,4 4v26a6,6 0,0 1,-6 6H39a6,6 0,0 1,-6 -6V47a4,4 0,0 1,4 -4z" />
-    <!-- Etiqueta -->
+        android:fillColor="@color/mint_sorbet"
+        android:pathData="M54,74 C44,72 40,62 42,52 C52,54 56,64 54,74 Z" />
     <path
-        android:fillColor="#C8E6C9"
-        android:pathData="M39,52h24v10H39z" />
-    <!-- Relógio -->
-    <path
-        android:fillColor="#EF6C00"
-        android:pathData="M68,58m-12,0a12,12 0,1 1,24 0a12,12 0,1 1,-24 0" />
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M67,50h2.5v8.2l5.2,3.1 -1.3,2.1 -6.4,-3.8z" />
+        android:fillColor="@color/deep_juniper"
+        android:pathData="M54,74 C60,70 64,62 64,54 C58,58 55,66 54,74 Z" />
 </vector>

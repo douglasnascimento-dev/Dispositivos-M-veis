@@ -2,14 +2,12 @@ package br.edu.utfpr.despensaalerta.ui.item;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -18,6 +16,7 @@ import br.edu.utfpr.despensaalerta.R;
 import br.edu.utfpr.despensaalerta.data.ItemRepository;
 import br.edu.utfpr.despensaalerta.model.Item;
 import br.edu.utfpr.despensaalerta.model.SituacaoItem;
+import br.edu.utfpr.despensaalerta.ui.Selos;
 import br.edu.utfpr.despensaalerta.util.DataUtils;
 
 /**
@@ -104,9 +103,11 @@ public class DetalheItemActivity extends AppCompatActivity {
 
         int rotuloRes;
         int corRes;
+        int fundoRes;
         if (item.isAtivo()) {
             rotuloRes = item.getStatus().getRotuloRes();
             corRes = item.getStatus().getCorRes();
+            fundoRes = item.getStatus().getFundoRes();
             textPrazo.setText(DataUtils.descreverPrazo(this, item.getDataValidade()));
             textPrazo.setVisibility(View.VISIBLE);
             grupoBaixa.setVisibility(View.GONE);
@@ -114,6 +115,7 @@ public class DetalheItemActivity extends AppCompatActivity {
         } else {
             rotuloRes = item.getSituacao().getRotuloRes();
             corRes = item.getSituacao().getCorRes();
+            fundoRes = item.getSituacao().getFundoRes();
             textPrazo.setVisibility(View.GONE);
             textBaixa.setText(getString(R.string.formato_baixa_detalhe,
                     getString(rotuloRes), DataUtils.formatar(item.getDataBaixa())));
@@ -121,8 +123,7 @@ public class DetalheItemActivity extends AppCompatActivity {
             grupoAcoesAtivo.setVisibility(View.GONE);
         }
         textSelo.setText(rotuloRes);
-        textSelo.setBackgroundTintList(
-                ColorStateList.valueOf(ContextCompat.getColor(this, corRes)));
+        Selos.colorir(textSelo, corRes, fundoRes);
     }
 
     private void registrarBaixa(SituacaoItem situacao, int mensagemRes) {

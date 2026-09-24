@@ -69,6 +69,25 @@ app/src/main/java/br/edu/utfpr/despensaalerta/
 > Na Entrega 3 o repositório passa a usar SQLite/Room. As telas continuam iguais, porque só
 > a implementação interna do repositório muda.
 
+## Identidade visual
+
+A interface usa uma paleta de tons naturais: verde de folhagem, creme de linho e caramelo de
+barro, que lembram cozinha e despensa. Formas orgânicas (folhas e arcos) aparecem como
+elementos decorativos.
+
+| Cor | Hex | Uso no app |
+|---|---|---|
+| **Deep Juniper** | `#355B56` | Cor principal: títulos, cabeçalho do Painel, botão Editar, selo "Na validade" |
+| **Mint Sorbet** | `#B8D8C4` | Seleção na barra inferior, botões de baixa, folha e arco decorativos |
+| **Caramel Clay** | `#A86F46` | Destaques: botão "Novo item", textos de prazo, selo "Vencendo" |
+| **Cream Linen** | `#F3EBDD` | Fundo das telas e barra superior |
+
+- **Status de validade** usam selos em formato de pílula, com fundo suave e texto na cor forte:
+  terracota (vencido), caramelo (vencendo) e juniper (na validade).
+- **Cantos arredondados** de 12/20/28 dp, inspirados nos blocos da paleta.
+- **Ícone do app**: pote em arco com tampa caramelo e folha, sobre fundo Deep Juniper.
+- As cores ficam em `res/values/colors.xml` e o tema em `res/values/themes.xml`.
+
 ## Como executar
 
 1. Abra a pasta do projeto no **Android Studio** (Ladybug ou mais recente).

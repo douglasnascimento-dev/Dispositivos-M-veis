@@ -43,13 +43,8 @@
 
     <TextView
         android:id="@+id/text_vazio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="24dp"
-        android:text="@string/itens_vazio"
-        android:textAppearance="?attr/textAppearanceBodyMedium"
-        android:visibility="gone" />
+        style="@style/Widget.DespensaAlerta.EstadoVazio"
+        android:text="@string/itens_vazio" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_itens"
