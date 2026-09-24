@@ -1,0 +1,4 @@
+// Arquivo de build raiz: apenas declara os plugins usados pelos módulos.
+plugins {
+    id 'com.android.application' version '8.7.3' apply false
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="verde_primario">#2E7D32</color>
+    <color name="verde_escuro">#1B5E20</color>
+    <color name="verde_claro">#C8E6C9</color>
+    <color name="laranja_secundario">#EF6C00</color>
+    <color name="fundo">#F6F8F5</color>
+    <color name="branco">#FFFFFF</color>
+    <color name="texto_secundario">#5F6368</color>
+
+    <!-- Status de validade -->
+    <color name="status_vencido">#C62828</color>
+    <color name="status_vencendo">#EF6C00</color>
+    <color name="status_ok">#2E7D32</color>
+
+    <!-- Situação da baixa -->
+    <color name="situacao_consumido">#1565C0</color>
+    <color name="situacao_descartado">#6D4C41</color>
+</resources>
