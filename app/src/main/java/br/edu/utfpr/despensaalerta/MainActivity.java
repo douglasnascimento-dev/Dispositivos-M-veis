@@ -10,6 +10,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
+import br.edu.utfpr.despensaalerta.model.StatusValidade;
 import br.edu.utfpr.despensaalerta.ui.historico.HistoricoFragment;
 import br.edu.utfpr.despensaalerta.ui.item.FormularioItemActivity;
 import br.edu.utfpr.despensaalerta.ui.itens.ItensFragment;
@@ -25,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG_HISTORICO = "historico";
 
     private ExtendedFloatingActionButton fabNovoItem;
+    private BottomNavigationView navegacao;
+    /** Status a aplicar na próxima vez que a aba Itens for criada (vindo do Painel). */
+    private StatusValidade statusPendente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +41,19 @@ public class MainActivity extends AppCompatActivity {
         fabNovoItem = findViewById(R.id.fab_novo_item);
         fabNovoItem.setOnClickListener(v -> startActivity(FormularioItemActivity.novoItem(this)));
 
-        BottomNavigationView navegacao = findViewById(R.id.bottom_navigation);
+        navegacao = findViewById(R.id.bottom_navigation);
         navegacao.setOnItemSelectedListener(menuItem -> {
             exibirAba(menuItem.getItemId());
             return true;
         });
         // Ao recriar a tela (ex.: rotação) o fragment já é restaurado; só ajustamos título e botão.
         exibirAba(navegacao.getSelectedItemId());
+    }
+
+    /** Abre a aba Itens já filtrada pelo status escolhido no Painel. */
+    public void abrirItens(StatusValidade status) {
+        statusPendente = status;
+        navegacao.setSelectedItemId(R.id.nav_itens);
     }
 
     private void exibirAba(int itemId) {
@@ -83,7 +93,9 @@ public class MainActivity extends AppCompatActivity {
     private Fragment criarFragment(String tag) {
         switch (tag) {
             case TAG_ITENS:
-                return new ItensFragment();
+                StatusValidade status = statusPendente;
+                statusPendente = null;
+                return ItensFragment.novaInstancia(status);
             case TAG_HISTORICO:
                 return new HistoricoFragment();
             default:

@@ -25,8 +25,8 @@ Itens exigidos nesta entrega:
 
 | Tela | Classe | O que mostra |
 |---|---|---|
-| Painel | `ui/painel/PainelFragment` | Totais de itens **Vencidos**, **Vencendo nos próximos 7 dias** e **Na validade**, mais a lista dos itens que precisam de atenção |
-| Itens | `ui/itens/ItensFragment` | Todos os itens disponíveis, ordenados pela validade, com busca por nome e filtro por categoria |
+| Painel | `ui/painel/PainelFragment` | Totais de itens **Vencidos**, **Vencendo nos próximos 7 dias** e **Na validade** (tocar num total abre a lista já filtrada), mais a lista dos itens que precisam de atenção |
+| Itens | `ui/itens/ItensFragment` | Todos os itens disponíveis, ordenados pela validade, com barra de busca por nome e chips de filtro por status e por categoria |
 | Histórico | `ui/historico/HistoricoFragment` | Itens marcados como **Consumido** ou **Descartado** |
 | Detalhes | `ui/item/DetalheItemActivity` | Dados do item e as ações Editar, Consumido, Descartado e Excluir |
 | Formulário | `ui/item/FormularioItemActivity` | Cadastro/edição: nome, categoria, quantidade, local e data de validade (com calendário) |
@@ -35,7 +35,7 @@ Itens exigidos nesta entrega:
 
 ```
 MainActivity (barra inferior)
-├── Painel ──────┐
+├── Painel ──────┐   (tocar num total abre Itens filtrado por status)
 ├── Itens ───────┼── toque no item ──> DetalheItemActivity ── Editar ──> FormularioItemActivity
 ├── Histórico ───┘
 └── botão "Novo item" ─────────────────────────────────────────────────> FormularioItemActivity
@@ -82,6 +82,8 @@ elementos decorativos.
 | **Caramel Clay** | `#A86F46` | Destaques: botão "Novo item", textos de prazo, selo "Vencendo" |
 | **Cream Linen** | `#F3EBDD` | Fundo das telas e barra superior |
 
+- **Busca e filtros** da tela de Itens: barra de busca em pílula (borda juniper ao focar),
+  chips de status em Deep Juniper e chips de categoria em Mint Sorbet.
 - **Status de validade** usam selos em formato de pílula, com fundo suave e texto na cor forte:
   terracota (vencido), caramelo (vencendo) e juniper (na validade).
 - **Cantos arredondados** de 12/20/28 dp, inspirados nos blocos da paleta.
@@ -103,6 +105,6 @@ Testes unitários: `./gradlew test`.
 |---|---|---|
 | 1. Definição do Projeto | 18/09/2026 | ✅ Proposta (PDF) |
 | 2. Desenvolvimento Inicial | 02/10/2026 | ✅ Estrutura, telas iniciais e navegação (esta versão) |
-| 3. Desenvolvimento Intermediário | 23/10/2026 | Banco local SQLite/Room, integração entre telas (ex.: tocar num total do Painel abre a lista filtrada), filtro por local de armazenamento |
+| 3. Desenvolvimento Intermediário | 23/10/2026 | Banco local SQLite/Room, mais integração entre telas, filtro por local de armazenamento |
 | 4. Desenvolvimento Avançado | 13/11/2026 | CRUD completo persistido, histórico com filtros, validações refinadas, melhorias de interface |
 | Final | 30/11/2026 | App completo, documentação e vídeo de até 5 minutos |

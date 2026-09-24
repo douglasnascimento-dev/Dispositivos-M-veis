@@ -86,16 +86,20 @@
             android:orientation="horizontal">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_vencidos"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
                 app:cardBackgroundColor="@color/status_vencido_fundo"
+                app:rippleColor="@color/linen_borda"
                 app:strokeWidth="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:paddingHorizontal="14dp"
                     android:paddingVertical="16dp">
@@ -113,22 +117,36 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/painel_vencidos"
+                        android:layout_weight="1"
                         android:textAppearance="?attr/textAppearanceLabelMedium"
                         android:textColor="@color/status_vencido" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="@string/painel_ver_itens"
+                        android:textAppearance="?attr/textAppearanceLabelSmall"
+                        android:textColor="@color/status_vencido"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_vencendo"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
                 app:cardBackgroundColor="@color/status_vencendo_fundo"
+                app:rippleColor="@color/linen_borda"
                 app:strokeWidth="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:paddingHorizontal="14dp"
                     android:paddingVertical="16dp">
@@ -146,22 +164,36 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/painel_vencendo"
+                        android:layout_weight="1"
                         android:textAppearance="?attr/textAppearanceLabelMedium"
                         android:textColor="@color/status_vencendo" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="@string/painel_ver_itens"
+                        android:textAppearance="?attr/textAppearanceLabelSmall"
+                        android:textColor="@color/status_vencendo"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_ok"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
                 app:cardBackgroundColor="@color/status_ok_fundo"
+                app:rippleColor="@color/linen_borda"
                 app:strokeWidth="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:paddingHorizontal="14dp"
                     android:paddingVertical="16dp">
@@ -179,8 +211,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/painel_ok"
+                        android:layout_weight="1"
                         android:textAppearance="?attr/textAppearanceLabelMedium"
                         android:textColor="@color/status_ok" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="@string/painel_ver_itens"
+                        android:textAppearance="?attr/textAppearanceLabelSmall"
+                        android:textColor="@color/status_ok"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>

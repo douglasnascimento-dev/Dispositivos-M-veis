@@ -7,7 +7,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 /**
- * Aplica as cores da identidade visual aos selos de status e aos avatares dos itens:
+ * Aplica as cores da identidade visual aos selos de status:
  * fundo suave com texto na cor forte correspondente.
  */
 public final class Selos {

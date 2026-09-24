@@ -89,6 +89,26 @@
         <item name="iconTint">@color/cream_linen</item>
     </style>
 
+    <!-- Chips de filtro em pílula: status em Deep Juniper, categorias em Mint Sorbet -->
+    <style name="Widget.DespensaAlerta.Chip.Status" parent="Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@color/chip_status_fundo</item>
+        <item name="chipStrokeColor">@color/chip_status_borda</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipCornerRadius">100dp</item>
+        <item name="chipMinHeight">36dp</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="android:textColor">@color/chip_status_texto</item>
+        <item name="android:textAppearance">?attr/textAppearanceLabelLarge</item>
+    </style>
+
+    <style name="Widget.DespensaAlerta.Chip.Categoria" parent="Widget.DespensaAlerta.Chip.Status">
+        <item name="chipBackgroundColor">@color/chip_categoria_fundo</item>
+        <item name="chipStrokeColor">@color/chip_categoria_borda</item>
+        <item name="android:textColor">@color/chip_categoria_texto</item>
+        <item name="android:textAppearance">?attr/textAppearanceLabelMedium</item>
+        <item name="chipMinHeight">32dp</item>
+    </style>
+
     <!-- Mensagem de lista vazia com o ramo de folhas da identidade visual -->
     <style name="Widget.DespensaAlerta.EstadoVazio" parent="Widget.AppCompat.TextView">
         <item name="android:layout_width">match_parent</item>

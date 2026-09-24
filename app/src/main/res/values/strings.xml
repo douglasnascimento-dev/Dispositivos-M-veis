@@ -29,6 +29,7 @@
         <item quantity="one">%d item disponível</item>
         <item quantity="other">%d itens disponíveis</item>
     </plurals>
+    <string name="painel_ver_itens">Ver itens ›</string>
     <string name="painel_vencidos">Vencidos</string>
     <string name="painel_vencendo">Próximos 7 dias</string>
     <string name="painel_ok">Na validade</string>
@@ -38,6 +39,9 @@
     <!-- Itens -->
     <string name="busca_hint">Buscar por nome</string>
     <string name="filtro_categoria">Categoria</string>
+    <string name="filtro_status">Status</string>
+    <string name="filtro_todos">Todos</string>
+    <string name="acao_limpar_busca">Limpar busca</string>
     <string name="filtro_todas_categorias">Todas as categorias</string>
     <string name="itens_vazio">Nenhum item encontrado.</string>
     <string name="acao_novo_item">Novo item</string>

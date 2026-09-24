@@ -6,40 +6,121 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+    <!-- Barra de busca personalizada em formato de pílula -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="52dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="12dp"
-        android:hint="@string/busca_hint"
-        app:endIconMode="clear_text"
-        app:startIconDrawable="@drawable/ic_busca">
+        android:addStatesFromChildren="true"
+        android:background="@drawable/bg_busca"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="18dp"
+        android:paddingEnd="6dp">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:importantForAccessibility="no"
+            app:srcCompat="@drawable/ic_busca"
+            app:tint="@color/deep_juniper" />
+
+        <EditText
             android:id="@+id/campo_busca"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="@string/busca_hint"
             android:imeOptions="actionSearch"
+            android:importantForAutofill="no"
             android:inputType="text"
-            android:maxLines="1" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:maxLines="1"
+            android:textAppearance="?attr/textAppearanceBodyLarge"
+            android:textColor="@color/texto_principal"
+            android:textColorHint="@color/texto_secundario" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        <ImageButton
+            android:id="@+id/botao_limpar_busca"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/acao_limpar_busca"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_fechar"
+            app:tint="@color/texto_secundario" />
+    </LinearLayout>
+
+    <!-- Filtro por status -->
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="8dp"
-        android:hint="@string/filtro_categoria">
+        android:layout_marginTop="10dp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="16dp"
+        android:scrollbars="none">
 
-        <com.google.android.material.textfield.MaterialAutoCompleteTextView
-            android:id="@+id/campo_filtro_categoria"
-            android:layout_width="match_parent"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chips_status"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="none"
-            app:simpleItems="@array/categorias_filtro" />
-    </com.google.android.material.textfield.TextInputLayout>
+            app:checkedChip="@id/chip_status_todos"
+            app:chipSpacingHorizontal="8dp"
+            app:selectionRequired="true"
+            app:singleLine="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_status_todos"
+                style="@style/Widget.DespensaAlerta.Chip.Status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filtro_todos" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_status_vencidos"
+                style="@style/Widget.DespensaAlerta.Chip.Status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/painel_vencidos" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_status_vencendo"
+                style="@style/Widget.DespensaAlerta.Chip.Status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/painel_vencendo" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_status_ok"
+                style="@style/Widget.DespensaAlerta.Chip.Status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/painel_ok" />
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
+
+    <!-- Filtro por categoria (chips criados no código a partir de @array/categorias_filtro) -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="16dp"
+        android:scrollbars="none">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chips_categoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:saveEnabled="false"
+            app:chipSpacingHorizontal="6dp"
+            app:selectionRequired="true"
+            app:singleLine="true"
+            app:singleSelection="true" />
+    </HorizontalScrollView>
 
     <TextView
         android:id="@+id/text_vazio"
@@ -52,7 +133,7 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:paddingHorizontal="12dp"
-        android:paddingTop="8dp"
+        android:paddingTop="4dp"
         android:paddingBottom="88dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_produto" />

@@ -65,18 +65,20 @@ public final class ItemRepository {
     }
 
     /**
-     * Busca itens ativos pelo nome e, opcionalmente, pela categoria.
+     * Busca itens ativos pelo nome e, opcionalmente, por categoria e status de validade.
      *
      * @param texto     trecho do nome (ignora maiúsculas e acentos); vazio para todos
      * @param categoria categoria exata ou {@code null} para todas
+     * @param status    status de validade ou {@code null} para todos
      */
-    public synchronized List<Item> buscar(String texto, String categoria) {
+    public synchronized List<Item> buscar(String texto, String categoria, StatusValidade status) {
         String termo = normalizar(texto);
         List<Item> resultado = new ArrayList<>();
         for (Item item : listarAtivos()) {
             boolean nomeConfere = termo.isEmpty() || normalizar(item.getNome()).contains(termo);
             boolean categoriaConfere = categoria == null || categoria.equals(item.getCategoria());
-            if (nomeConfere && categoriaConfere) {
+            boolean statusConfere = status == null || item.getStatus() == status;
+            if (nomeConfere && categoriaConfere && statusConfere) {
                 resultado.add(item);
             }
         }

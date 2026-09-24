@@ -1,11 +1,15 @@
 package br.edu.utfpr.despensaalerta.ui.itens;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,26 +17,44 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.textfield.MaterialAutoCompleteTextView;
-import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 
 import java.util.List;
 
 import br.edu.utfpr.despensaalerta.R;
 import br.edu.utfpr.despensaalerta.data.ItemRepository;
 import br.edu.utfpr.despensaalerta.model.Item;
+import br.edu.utfpr.despensaalerta.model.StatusValidade;
 import br.edu.utfpr.despensaalerta.ui.adapter.ItemAdapter;
 import br.edu.utfpr.despensaalerta.ui.item.DetalheItemActivity;
 
 /**
- * Lista de todos os itens disponíveis, com busca por nome e filtro por categoria.
+ * Lista de todos os itens disponíveis, com busca por nome e filtros por status e categoria.
+ * Pode ser aberta já filtrada por status a partir dos cartões do Painel.
  */
 public class ItensFragment extends Fragment {
 
-    private TextInputEditText campoBusca;
-    private MaterialAutoCompleteTextView campoCategoria;
+    private static final String ARG_STATUS = "status";
+    private static final String ESTADO_CATEGORIA = "categoria";
+
+    private EditText campoBusca;
+    private View botaoLimparBusca;
+    private ChipGroup chipsStatus;
+    private ChipGroup chipsCategoria;
     private TextView textVazio;
     private ItemAdapter adapter;
+
+    /** Cria a tela já filtrada pelo status informado ({@code null} mostra todos). */
+    public static ItensFragment novaInstancia(@Nullable StatusValidade status) {
+        ItensFragment fragment = new ItensFragment();
+        if (status != null) {
+            Bundle args = new Bundle();
+            args.putString(ARG_STATUS, status.name());
+            fragment.setArguments(args);
+        }
+        return fragment;
+    }
 
     @Nullable
     @Override
@@ -44,7 +66,9 @@ public class ItensFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         campoBusca = view.findViewById(R.id.campo_busca);
-        campoCategoria = view.findViewById(R.id.campo_filtro_categoria);
+        botaoLimparBusca = view.findViewById(R.id.botao_limpar_busca);
+        chipsStatus = view.findViewById(R.id.chips_status);
+        chipsCategoria = view.findViewById(R.id.chips_categoria);
         textVazio = view.findViewById(R.id.text_vazio);
 
         adapter = new ItemAdapter(false, item ->
@@ -52,10 +76,34 @@ public class ItensFragment extends Fragment {
         RecyclerView lista = view.findViewById(R.id.recycler_itens);
         lista.setAdapter(adapter);
 
-        if (campoCategoria.getText().length() == 0) {
-            campoCategoria.setText(getString(R.string.filtro_todas_categorias), false);
+        criarChipsCategoria(savedInstanceState == null
+                ? 0 : savedInstanceState.getInt(ESTADO_CATEGORIA, 0));
+        if (savedInstanceState == null) {
+            // Os chips de status têm id fixo e o Android restaura a seleção sozinho após rotação.
+            chipsStatus.check(idDoChip(statusInicial()));
         }
-        campoCategoria.setOnItemClickListener((parent, v, position, id) -> atualizar());
+
+        chipsStatus.setOnCheckedStateChangeListener((group, checkedIds) -> atualizar());
+        chipsCategoria.setOnCheckedStateChangeListener((group, checkedIds) -> atualizar());
+        configurarBusca();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        atualizar();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (chipsCategoria != null) {
+            outState.putInt(ESTADO_CATEGORIA,
+                    chipsCategoria.indexOfChild(chipsCategoria.findViewById(chipsCategoria.getCheckedChipId())));
+        }
+    }
+
+    private void configurarBusca() {
         campoBusca.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -67,26 +115,95 @@ public class ItensFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
+                botaoLimparBusca.setVisibility(s.length() > 0 ? View.VISIBLE : View.GONE);
                 atualizar();
             }
         });
+        campoBusca.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                esconderTeclado();
+                return true;
+            }
+            return false;
+        });
+        botaoLimparBusca.setOnClickListener(v -> campoBusca.setText(""));
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        atualizar();
+    /** Um chip por categoria; o primeiro é "Todas as categorias". */
+    private void criarChipsCategoria(int indiceSelecionado) {
+        LayoutInflater inflater = LayoutInflater.from(requireContext());
+        String[] categorias = getResources().getStringArray(R.array.categorias_filtro);
+        for (int i = 0; i < categorias.length; i++) {
+            Chip chip = (Chip) inflater.inflate(R.layout.chip_categoria, chipsCategoria, false);
+            chip.setId(View.generateViewId());
+            chip.setText(categorias[i]);
+            // O primeiro chip representa "todas", sem filtro.
+            chip.setTag(i == 0 ? null : categorias[i]);
+            // Os ids são gerados a cada criação, então a seleção é salva manualmente.
+            chip.setSaveEnabled(false);
+            chipsCategoria.addView(chip);
+        }
+        int indice = indiceSelecionado >= 0 && indiceSelecionado < categorias.length
+                ? indiceSelecionado : 0;
+        chipsCategoria.check(chipsCategoria.getChildAt(indice).getId());
+    }
+
+    @Nullable
+    private StatusValidade statusInicial() {
+        Bundle args = getArguments();
+        if (args == null || args.getString(ARG_STATUS) == null) {
+            return null;
+        }
+        return StatusValidade.valueOf(args.getString(ARG_STATUS));
+    }
+
+    private static int idDoChip(@Nullable StatusValidade status) {
+        if (status == null) {
+            return R.id.chip_status_todos;
+        }
+        switch (status) {
+            case VENCIDO:
+                return R.id.chip_status_vencidos;
+            case VENCENDO:
+                return R.id.chip_status_vencendo;
+            default:
+                return R.id.chip_status_ok;
+        }
+    }
+
+    @Nullable
+    private StatusValidade statusSelecionado() {
+        int id = chipsStatus.getCheckedChipId();
+        if (id == R.id.chip_status_vencidos) {
+            return StatusValidade.VENCIDO;
+        }
+        if (id == R.id.chip_status_vencendo) {
+            return StatusValidade.VENCENDO;
+        }
+        if (id == R.id.chip_status_ok) {
+            return StatusValidade.DENTRO_DA_VALIDADE;
+        }
+        return null;
+    }
+
+    @Nullable
+    private String categoriaSelecionada() {
+        View chip = chipsCategoria.findViewById(chipsCategoria.getCheckedChipId());
+        return chip == null ? null : (String) chip.getTag();
     }
 
     private void atualizar() {
-        String texto = campoBusca.getText() == null ? "" : campoBusca.getText().toString();
-        String categoria = campoCategoria.getText().toString();
-        if (categoria.equals(getString(R.string.filtro_todas_categorias))) {
-            categoria = null;
-        }
-
-        List<Item> itens = ItemRepository.getInstance().buscar(texto, categoria);
+        String texto = campoBusca.getText().toString();
+        List<Item> itens = ItemRepository.getInstance()
+                .buscar(texto, categoriaSelecionada(), statusSelecionado());
         adapter.submeter(itens);
         textVazio.setVisibility(itens.isEmpty() ? View.VISIBLE : View.GONE);
+    }
+
+    private void esconderTeclado() {
+        InputMethodManager imm = (InputMethodManager) requireContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(campoBusca.getWindowToken(), 0);
+        campoBusca.clearFocus();
     }
 }

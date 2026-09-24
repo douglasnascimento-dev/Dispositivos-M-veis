@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.edu.utfpr.despensaalerta.MainActivity;
 import br.edu.utfpr.despensaalerta.R;
 import br.edu.utfpr.despensaalerta.data.ItemRepository;
 import br.edu.utfpr.despensaalerta.model.Item;
@@ -52,12 +53,24 @@ public class PainelFragment extends Fragment {
                 startActivity(DetalheItemActivity.abrir(requireContext(), item.getId())));
         RecyclerView lista = view.findViewById(R.id.recycler_atencao);
         lista.setAdapter(adapter);
+
+        // Cada cartão de total abre a aba Itens já filtrada por aquele status.
+        view.findViewById(R.id.card_vencidos).setOnClickListener(v -> abrirItens(StatusValidade.VENCIDO));
+        view.findViewById(R.id.card_vencendo).setOnClickListener(v -> abrirItens(StatusValidade.VENCENDO));
+        view.findViewById(R.id.card_ok).setOnClickListener(v ->
+                abrirItens(StatusValidade.DENTRO_DA_VALIDADE));
     }
 
     @Override
     public void onResume() {
         super.onResume();
         atualizar();
+    }
+
+    private void abrirItens(StatusValidade status) {
+        if (requireActivity() instanceof MainActivity) {
+            ((MainActivity) requireActivity()).abrirItens(status);
+        }
     }
 
     private void atualizar() {

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import br.edu.utfpr.despensaalerta.R;
 import br.edu.utfpr.despensaalerta.model.Item;
@@ -80,9 +79,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.textSelo.setText(rotuloRes);
         Selos.colorir(holder.textSelo, corRes, fundoRes);
 
-        holder.textInicial.setText(item.getNome().substring(0, 1).toUpperCase(Locale.getDefault()));
-        Selos.colorir(holder.textInicial, corRes, fundoRes);
-
         holder.itemView.setOnClickListener(v -> listener.onItemClick(item));
     }
 
@@ -96,7 +92,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         final TextView textDetalhes;
         final TextView textData;
         final TextView textSelo;
-        final TextView textInicial;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -104,7 +99,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             textDetalhes = itemView.findViewById(R.id.text_detalhes);
             textData = itemView.findViewById(R.id.text_data);
             textSelo = itemView.findViewById(R.id.text_selo);
-            textInicial = itemView.findViewById(R.id.text_inicial);
         }
     }
 }

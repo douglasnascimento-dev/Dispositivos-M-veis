@@ -12,25 +12,9 @@
         android:padding="14dp">
 
         <TextView
-            android:id="@+id/text_inicial"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:background="@drawable/bg_avatar"
-            android:gravity="center"
-            android:textAppearance="?attr/textAppearanceTitleLarge"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:backgroundTint="@color/status_vencido_fundo"
-            tools:text="L"
-            tools:textColor="@color/status_vencido" />
-
-        <TextView
             android:id="@+id/text_nome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
             android:layout_marginEnd="8dp"
             android:ellipsize="end"
             android:maxLines="1"
@@ -38,7 +22,7 @@
             android:textColor="@color/deep_juniper"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/text_selo"
-            app:layout_constraintStart_toEndOf="@id/text_inicial"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Leite integral" />
 
